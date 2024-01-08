@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    [Header("Movement Values")]
     [SerializeField] private float playerSpeed = 10f;
 
-    Rigidbody2D playerRigidbody;
+
+    private Rigidbody2D playerRigidbody;
 
     private float inputX;
     private float inputY;
+
+
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
@@ -19,18 +22,19 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        InputHandler();
-        MovementHandler();
+        HandleInput();
+        HandleMovement();
     }
 
-    private void InputHandler()
+    private void HandleInput()
     {
-        inputX = Input.GetAxis("Horizontal");
-        inputY = Input.GetAxis("Vertical");
+        inputX = Input.GetAxis("Horizontal") * playerSpeed;
+        inputY = Input.GetAxis("Vertical") * playerSpeed;
     }
 
-    private void MovementHandler()
+    private void HandleMovement()
     {
         playerRigidbody.velocity = new Vector2 (inputX, inputY);
     }
 }
+
